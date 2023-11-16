@@ -37,5 +37,13 @@ class TasksViewModel @Inject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
+    fun onTaskClicked(task: Task) {
+
+    }
+
+    fun onChangeCheckbox(task: Task, checked: Boolean) =viewModelScope.launch{
+        taskDao.upsert(task.copy(done = checked))
+    }
+
     val tasks = tasksFlow.asLiveData()
 }

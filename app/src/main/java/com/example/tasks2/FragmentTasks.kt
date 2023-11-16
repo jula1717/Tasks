@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FragmentTasks : Fragment(R.layout.fragment_tasks) {
+class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickListener {
 
     private val viewModel: TasksViewModel by viewModels()
 
@@ -25,7 +26,7 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks) {
 
         val binding = FragmentTasksBinding.bind(view)
 
-        val taskAdapter = TaskAdapter()
+        val taskAdapter = TaskAdapter(this)
 
         binding.apply {
             recyclerview.apply {
@@ -80,5 +81,13 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks) {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onItemClick(task: Task) {
+        viewModel.onTaskClicked(task)
+    }
+
+    override fun onCheckboxClick(task: Task, isChecked: Boolean) {
+        viewModel.onChangeCheckbox(task,isChecked)
     }
 }
