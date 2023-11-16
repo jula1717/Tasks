@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    //dataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0-alpha02")
+
     //lifecycle
     val lifecycle_version = "2.6.2"
     // ViewModel
@@ -59,13 +62,6 @@ dependencies {
     val hilt_version = "2.48"
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
-
-    //room
-//    val room_version = "2.5.0"
-//    implementation("androidx.room:room-ktx:$room_version")
-//    kapt("androidx.room:room-compiler:$room_version")
-//    // optional - Kotlin Extensions and Coroutines support for Room
-//    implementation("androidx.room:room-ktx:$room_version")
 
     //room
     val room_version = "2.6.0"
