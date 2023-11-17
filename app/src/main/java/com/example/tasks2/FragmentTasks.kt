@@ -98,6 +98,11 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickL
                         Snackbar.make(requireView(),
                             event.message, Snackbar.LENGTH_SHORT).show()
                     }
+
+                    TasksViewModel.TasksEvent.OpenDeleteAllCompletedScreen -> {
+                        val action = DeleteDialogFragmentDirections.actionGlobalDeleteDialogFragment()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }
@@ -138,7 +143,7 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickL
                 true
             }
             R.id.action_delete_all_completed_tasks -> {
-
+                viewModel.onDeleteAllCompletedClick()
                 true
             }
             else -> super.onOptionsItemSelected(item)
