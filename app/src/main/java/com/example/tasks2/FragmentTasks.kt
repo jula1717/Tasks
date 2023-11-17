@@ -25,6 +25,8 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickL
 
     private val viewModel: TasksViewModel by viewModels()
 
+    private lateinit var searchView:SearchView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -115,7 +117,13 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickL
         inflater.inflate(R.menu.menu, menu)
 
         val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
+        searchView = searchItem.actionView as SearchView
+
+        val pendingQuery = viewModel.searchQuery.value
+        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+            searchItem.expandActionView()
+            searchView.setQuery(pendingQuery, false)
+        }
 
         searchView.onQueryTextChanged {
             viewModel.searchQuery.value = it
@@ -156,5 +164,10 @@ class FragmentTasks : Fragment(R.layout.fragment_tasks),TaskAdapter.onItemClickL
 
     override fun onCheckboxClick(task: Task, isChecked: Boolean) {
         viewModel.onChangeCheckbox(task,isChecked)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        searchView.setOnQueryTextListener(null)
     }
 }
