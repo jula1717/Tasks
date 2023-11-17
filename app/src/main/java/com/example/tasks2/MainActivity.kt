@@ -1,5 +1,6 @@
 package com.example.tasks2
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
@@ -8,6 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 
+
+const val ADD_TASK_RESULT_OK = Activity.RESULT_FIRST_USER
+const val UPDATE_TASK_RESULT_OK = Activity.RESULT_FIRST_USER+1
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

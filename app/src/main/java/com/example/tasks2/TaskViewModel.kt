@@ -60,11 +60,23 @@ class TasksViewModel @Inject constructor(
         tasksEventChannel.send(TasksEvent.OpenAddNewTaskScreen)
     }
 
+    fun onAddEditResult(result: Int) {
+        when (result) {
+            ADD_TASK_RESULT_OK -> showTaskSavedConfirmationMessage("Task added")
+            UPDATE_TASK_RESULT_OK -> showTaskSavedConfirmationMessage("Task updated")
+        }
+    }
+
+    private fun showTaskSavedConfirmationMessage(text: String) = viewModelScope.launch {
+        tasksEventChannel.send(TasksEvent.ShowTaskSavedConfirmationMessage(text))
+    }
+
     val tasks = tasksFlow.asLiveData()
 
     sealed class TasksEvent {
         data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
         data class OpenEditTaskScreen(val task:Task) : TasksEvent()
         object OpenAddNewTaskScreen:TasksEvent()
+        data class ShowTaskSavedConfirmationMessage(val message: String) : TasksEvent()
     }
 }
