@@ -3,4 +3,6 @@
     <string name="important">important</string>
     <string name="task_deleted">Task deleted</string>
     <string name="undo">UNDO</string>
+    <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
 </resources>

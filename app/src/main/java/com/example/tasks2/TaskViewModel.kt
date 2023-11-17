@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val taskDao: TaskDao,
-    private val preferencesManager: PreferencesManager
+    private val preferencesManager: PreferencesManager,
 ) : ViewModel() {
 
     val searchQuery = MutableStateFlow("")
@@ -42,8 +42,8 @@ class TasksViewModel @Inject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onTaskClicked(task: Task) {
-
+    fun onTaskClicked(task: Task) =viewModelScope.launch {
+        tasksEventChannel.send(TasksEvent.OpenEditTaskScreen(task))
     }
 
     fun onChangeCheckbox(task: Task, checked: Boolean) = viewModelScope.launch {
@@ -56,10 +56,15 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onUndoDeleteClick(task: Task) = viewModelScope.launch { taskDao.upsert(task) }
+    fun onAddNewTaskClick() =viewModelScope.launch {
+        tasksEventChannel.send(TasksEvent.OpenAddNewTaskScreen)
+    }
 
     val tasks = tasksFlow.asLiveData()
 
     sealed class TasksEvent {
         data class ShowUndoDeleteTaskMessage(val task: Task) : TasksEvent()
+        data class OpenEditTaskScreen(val task:Task) : TasksEvent()
+        object OpenAddNewTaskScreen:TasksEvent()
     }
 }

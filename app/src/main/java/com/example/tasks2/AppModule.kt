@@ -1,7 +1,6 @@
 package com.example.tasks2
 
 import android.app.Application
-import androidx.room.Database
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides

@@ -8,6 +8,23 @@
     <fragment
         android:id="@+id/fragmentTasks"
         android:name="com.example.tasks2.FragmentTasks"
-        android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        android:label="Tasks"
+        tools:layout="@layout/fragment_tasks">
+        <action
+            android:id="@+id/action_fragmentTasks_to_addEditTaskFragment"
+            app:destination="@id/addEditTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditTaskFragment"
+        android:name="com.example.tasks2.AddEditTaskFragment"
+        android:label="{label}"
+        tools:layout="@layout/fragment_add_edit_task">
+        <argument
+            android:name="task"
+            app:argType="com.example.tasks2.Task"
+            app:nullable="true" />
+        <argument
+            android:name="label"
+            app:argType="string" />
+    </fragment>
 </navigation>
