@@ -20,22 +20,18 @@ internal class TaskAdapter(private val listener:onItemClickListener) : ListAdapt
 
         init {
             binding.apply {
-                root.setOnClickListener{
+                root.setOnClickListener {
                     val position = adapterPosition
-                    if(position!=RecyclerView.NO_POSITION){
-                        val currentTask = getItem(position)
-                            if(currentTask!=null){
-                                listener.onItemClick(currentTask)
-                            }
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onItemClick(task)
                     }
                 }
-                checkboxCompleted.setOnClickListener{
+                checkboxCompleted.setOnClickListener {
                     val position = adapterPosition
-                    if(position!=RecyclerView.NO_POSITION){
-                        val currentTask = getItem(position)
-                        if(currentTask!=null){
-                            listener.onCheckboxClick(currentTask,checkboxCompleted.isChecked)
-                        }
+                    if (position != RecyclerView.NO_POSITION) {
+                        val task = getItem(position)
+                        listener.onCheckboxClick(task, checkboxCompleted.isChecked)
                     }
                 }
             }
